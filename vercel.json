@@ -3,18 +3,14 @@
   "name": "urbanbliss-ecom",
   "builds": [
     {
-      "src": "backend/server.js",
+      "src": "server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": ".next/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "backend/server.js"
+      "dest": "server.js"
     }
   ]
 }

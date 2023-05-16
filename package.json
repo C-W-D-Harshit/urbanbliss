@@ -1,0 +1,32 @@
+{
+  "name": "urbanbliss-ecom",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon backend/server.js",
+    "build": "next build",
+    "start": "node backend/server.js",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.0",
+    "@types/webidl-conversions": "^7.0.0",
+    "cloudinary": "^1.36.4",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.2",
+    "express": "^4.18.2",
+    "file-loader": "^6.2.0",
+    "is-mobile": "^4.0.0",
+    "mongoose": "^7.1.1",
+    "next": "13.4.2",
+    "nprogress": "^0.2.0",
+    "raw-loader": "^4.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-responsive-carousel": "^3.2.23",
+    "webidl-conversions": "^7.0.0"
+  }
+}

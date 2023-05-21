@@ -38,7 +38,7 @@ const ProductDetail = ({ product, error }) => {
   };
 
   const handlePlus = () => {
-    if ((count > 1, count < product.stock, count < 10)) {
+    if ((count > 1, count < product.stock, product.stock >= 10 && count < 10)) {
       setCount(count + 1);
     }
   };

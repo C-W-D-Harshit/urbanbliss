@@ -105,7 +105,7 @@ const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex((item) =>
         item.product._id === productId && item.product.sizeOptions.length !== 0
           ? item.product.sizeOptions === sizeOptions
-          : true
+          : item.product._id === productId
       );
 
       if (itemIndex >= 0) {
@@ -138,7 +138,7 @@ const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex((item) =>
         item.product._id === productId && item.product.sizeOptions.length !== 0
           ? item.product.sizeOptions === sizeOptions
-          : true
+          : item.product._id === productId
       );
 
       if (itemIndex >= 0) {

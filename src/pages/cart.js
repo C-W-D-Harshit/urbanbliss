@@ -11,8 +11,11 @@ import {
 import Link from "next/link";
 import { Divider } from "@mui/material";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Cart = () => {
+  const router = useRouter();
   const items = useSelector((state) => state.cart.cartItems);
   const ct = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -31,9 +34,21 @@ const Cart = () => {
   const n = () => {
     console.log("noob");
   };
+  const user = Cookies.get("user");
   const check = () => {
-    if (items.length === 0) {
-      Swal.fire("Bro!", "Please add products first!", "warning");
+    if (user) {
+      if (items.length === 0) {
+        Swal.fire("Bro!", "Please add products first!", "warning");
+      } else {
+        router.push("/checkout");
+      }
+    } else {
+      if (items.length === 0) {
+        Swal.fire("Bro!", "Please add products first!", "warning");
+      } else {
+        Swal.fire("Bro!", "Please login first!", "warning");
+        router.push("/login");
+      }
     }
   };
   return (

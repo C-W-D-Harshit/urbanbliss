@@ -8,19 +8,23 @@ import React from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsHandbag } from "react-icons/bs";
 import { MdOutlineAccountBox } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { clearCart } from "../../reducers/cartSlice";
 
 const Account = ({ user }) => {
   const router = useRouter();
   const orderCount = 0;
   const wishCount = 0;
   const proCount = 0;
+  const dispatch = useDispatch();
   const handleLogout = async () => {
     try {
       const { data } = await axios.get(`/api/v1/logout`);
 
       if (data.success === true) {
         Cookies.remove("user");
+        dispatch(clearCart());
         Swal.fire("Good job!", "Logged Out Successfully!", "success");
         router.push("/");
       }

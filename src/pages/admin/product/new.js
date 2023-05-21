@@ -406,6 +406,7 @@ const New = () => {
                     style={{ display: "none" }}
                     multiple
                     required
+                    name="image"
                   />
                 </div>
                 {selectedImages.map((image, index) => (

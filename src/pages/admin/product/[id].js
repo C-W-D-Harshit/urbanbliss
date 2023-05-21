@@ -434,6 +434,7 @@ const Edit = ({ product }) => {
                     onChange={handleImageChange}
                     style={{ display: "none" }}
                     multiple
+                    name="image"
                   />
                 </div>
                 {selectedImages.map((image, index) => (

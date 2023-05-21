@@ -54,7 +54,7 @@ serv.prepare().then(() => {
   });
 
   // Start the server
-  const server = app.listen(3000, (err) => {
+  const server = app.listen(process.env.PORT, (err) => {
     if (err) throw err;
     console.log("Express server ready on http://localhost:3000");
   });

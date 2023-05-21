@@ -66,7 +66,10 @@ const Cart = () => {
                   return (
                     <tr key={index}>
                       <td>
-                        <div className="cart_table_product">
+                        <Link
+                          href={`/product/${item.product._id}`}
+                          className="cart_table_product"
+                        >
                           <div className="cart_table_product_img">
                             <Image
                               src={item.product.images[0].url}
@@ -91,7 +94,7 @@ const Cart = () => {
                               </div>
                             )}
                           </div>
-                        </div>
+                        </Link>
                       </td>
                       <td>
                         <div className="cart_fart">

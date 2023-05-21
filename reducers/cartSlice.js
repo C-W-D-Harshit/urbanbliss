@@ -12,9 +12,14 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action) {
       const { product, count } = action.payload;
-      const itemIndex = state.cartItems.findIndex(
-        (item) => item.product === product
-      );
+      const itemIndex = state.cartItems.findIndex((item) => {
+        if (item.product && item.product._id && product && product._id) {
+          if (item.product._id === product._id) {
+            return item.product._id === product._id;
+          }
+        }
+        return false;
+      });
       if (itemIndex >= 0) {
         state.cartItems[itemIndex] = {
           ...state.cartItems[itemIndex],
@@ -26,8 +31,16 @@ const cartSlice = createSlice({
           cartQuantity: count,
         });
       }
+      // Update cart total quantity
       state.cartTotalQuantity = state.cartItems.reduce(
         (total, item) => total + item.cartQuantity,
+        0
+      );
+      // Update cart total amount
+      state.cartTotalAmount = state.cartItems.reduce(
+        (total, item) =>
+          total +
+          (item.product.salePrice || item.product.price) * item.cartQuantity,
         0
       );
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -89,10 +102,10 @@ const cartSlice = createSlice({
     decreaseCartQuantity(state, action) {
       const { _id, sizeOptions } = action.payload;
       const productId = _id;
-      const itemIndex = state.cartItems.findIndex(
-        (item) =>
-          item.product._id === productId &&
-          item.product.sizeOptions === sizeOptions
+      const itemIndex = state.cartItems.findIndex((item) =>
+        item.product._id === productId && item.product.sizeOptions.length !== 0
+          ? item.product.sizeOptions === sizeOptions
+          : true
       );
 
       if (itemIndex >= 0) {
@@ -122,10 +135,10 @@ const cartSlice = createSlice({
     increaseCartQuantity(state, action) {
       const { _id, sizeOptions } = action.payload;
       const productId = _id;
-      const itemIndex = state.cartItems.findIndex(
-        (item) =>
-          item.product._id === productId &&
-          item.product.sizeOptions === sizeOptions
+      const itemIndex = state.cartItems.findIndex((item) =>
+        item.product._id === productId && item.product.sizeOptions.length !== 0
+          ? item.product.sizeOptions === sizeOptions
+          : true
       );
 
       if (itemIndex >= 0) {

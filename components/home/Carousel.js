@@ -28,9 +28,8 @@ const MyCarousel = () => {
               alt="Image 1"
               width={3000}
               height={800}
-              quality={100}
+              quality={90}
               className="car_img"
-              priority
             />
           </div>
           <div>
@@ -39,7 +38,7 @@ const MyCarousel = () => {
               alt="Image 2"
               width={3000}
               height={800}
-              quality={100}
+              quality={80}
               className="car_img"
             />
           </div>

@@ -22,7 +22,14 @@ const ProductDetail = ({ product, error }) => {
   const [prod, setProd] = useState(false);
   const [size, setSize] = useState(null);
   const [color, setColor] = useState(null);
-  const [oProduct, setOProduct] = useState(null);
+  const [oProduct, setOProduct] = useState(product);
+
+  useEffect(() => {
+    setOProduct((prevProduct) => ({
+      ...prevProduct,
+      sizeOptions: [],
+    }));
+  }, []);
 
   const handleMinus = () => {
     if (count > 1) {
@@ -77,6 +84,15 @@ const ProductDetail = ({ product, error }) => {
     setProducts(product);
   }, []);
 
+  const adt = () => {
+    const ATC = {
+      product: oProduct,
+      count,
+    };
+    dispatch(patc(ATC));
+    Swal.fire("Yu Hoooo!", "Product added to Cart!", "success");
+  };
+
   const addToCart = () => {
     if (product.sizeOptions.length !== 0 && prod === false) {
       Swal.fire("Bro!", "Select Size and Color", "warning");
@@ -87,7 +103,7 @@ const ProductDetail = ({ product, error }) => {
       return;
     }
     const ATC = {
-      product: prod ? prod : product,
+      product: prod,
       count,
     };
     dispatch(patc(ATC));
@@ -259,7 +275,10 @@ const ProductDetail = ({ product, error }) => {
                   <p>{count}</p>
                   <AiOutlinePlus onClick={handlePlus} />
                 </div>
-                <div className="productDetail_atc" onClick={addToCart}>
+                <div
+                  className="productDetail_atc"
+                  onClick={product.sizeOptions.length !== 0 ? addToCart : adt}
+                >
                   <p>Add to Cart</p>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -30,6 +30,10 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
     sku: {
       type: String,
       required: true,
@@ -49,6 +53,7 @@ const ProductSchema = new mongoose.Schema(
     salePrice: {
       type: Number,
       min: 0,
+      default: 0,
       validate: {
         validator: function (val) {
           return Number.isInteger(val);
@@ -139,6 +144,17 @@ const ProductSchema = new mongoose.Schema(
               message: "Price must be an integer.",
             },
           },
+          salePrice: {
+            type: Number,
+            required: true,
+            min: 0,
+            validate: {
+              validator: function (val) {
+                return Number.isInteger(val);
+              },
+              message: "Sale Price must be an integer.",
+            },
+          },
         },
       ],
       validate: [
@@ -168,11 +184,15 @@ function sizeOptionsValidator(value) {
 
 // Define a Mongoose pre-save middleware
 ProductSchema.pre("save", function (next) {
-  const discountPercentage = ((this.price - this.salePrice) / this.price) * 100;
+  if (this.salePrice !== 0) {
+    const discountPercentage =
+      ((this.price - this.salePrice) / this.price) * 100;
+    console.log(discountPercentage);
 
-  if (discountPercentage >= 50) {
-    // Set a threshold discount level of 50%
-    this.dod = true; // Set the dod flag to true
+    if (discountPercentage >= 50) {
+      // Set a threshold discount level of 50%
+      this.dod = true; // Set the dod flag to true
+    }
   }
 
   next(); // Call the next middleware function
@@ -191,5 +211,4 @@ ProductSchema.pre("save", function (next) {
   next(); // Call the next middleware function
 });
 
-export default mongoose.models.Product ||
-  mongoose.model("Product", ProductSchema);
+module.exports = mongoose.model("Product", ProductSchema);

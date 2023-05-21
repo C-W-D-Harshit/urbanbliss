@@ -5,7 +5,7 @@ const sendToken = require("../utils/userJwt");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
-const Vendor = require("../models/vendorModel");
+// const Vendor = require("../models/vendorModel");
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -218,14 +218,14 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-exports.getAllVendors = catchAsyncErrors(async (req, res, next) => {
-  const vendors = await Vendor.find();
+// exports.getAllVendors = catchAsyncErrors(async (req, res, next) => {
+//   const vendors = await Vendor.find();
 
-  res.status(200).json({
-    success: true,
-    vendors,
-  });
-});
+//   res.status(200).json({
+//     success: true,
+//     vendors,
+//   });
+// });
 
 // Get single user (admin)
 exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {

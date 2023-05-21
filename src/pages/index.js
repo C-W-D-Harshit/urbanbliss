@@ -96,11 +96,12 @@ export default function Home() {
             <Card2 img="/c4.jpg" tit="shop casual" />
           </div>
         </section>
+        <ProductHolder title={"Deals of the day"} feature="dod" />
         <Ad
           img="/a1.jpg"
           title="35% off only this friday and get special gifts"
         />
-        <ProductHolder title={"Featured Products"} feature="fp" />
+        <ProductHolder title={"New Arrivals"} feature="nA" />
       </main>
     </>
   );

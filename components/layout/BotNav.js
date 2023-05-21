@@ -1,23 +1,24 @@
+import Cookies from "js-cookie";
 import Link from "next/link";
 import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineShopping } from "react-icons/ai";
 import { BiHomeAlt, BiSearchAlt } from "react-icons/bi";
-import { BsSearch } from "react-icons/bs";
-import { MdAccountBox, MdOutlineAccountBox } from "react-icons/md";
+import { MdOutlineAccountBox } from "react-icons/md";
 
 const BotNav = () => {
+  const token = Cookies.get("user");
   return (
     <div className="botNav">
       <Link href="/" className="botNav_">
         <BiHomeAlt />
       </Link>
-      <Link href="/" className="botNav_">
+      <Link href="/shop" className="botNav_">
+        <AiOutlineShopping />
+      </Link>
+      <Link href="/search" className="botNav_">
         <BiSearchAlt />
       </Link>
-      <Link href="/" className="botNav_">
-        <AiOutlineHeart />
-      </Link>
-      <Link href="/" className="botNav_">
+      <Link href={token ? "/account" : "/signup"} className="botNav_">
         <MdOutlineAccountBox />
       </Link>
     </div>

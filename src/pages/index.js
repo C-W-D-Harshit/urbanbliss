@@ -25,7 +25,7 @@ export default function Home() {
     return (
       <div className="home__4_card">
         <div className="home__4_img">
-          <Image src={img} alt="image" width={500} height={500} />
+          <Image src={img} alt="image" width={500} height={500} quality={60} />
         </div>
         <div className="home__4_cta">
           <p style={{ textTransform: "capitalize" }}>{tit}</p>
@@ -49,14 +49,62 @@ export default function Home() {
             <p>Brands</p>
           </div>
           <div className="home__brands_hold">
-            <Image src="/adidas.png" width={80} height={80} alt="img" />
-            <Image src="/chanel.png" width={80} height={80} alt="img" />
-            <Image src="/dolce.png" width={80} height={80} alt="img" />
-            <Image src="/dockers.png" width={80} height={80} alt="img" />
-            <Image src="/fila.png" width={80} height={80} alt="img" />
-            <Image src="/calvin.png" width={80} height={80} alt="img" />
-            <Image src="/authorised.png" width={80} height={80} alt="img" />
-            <Image src="/armani.png" width={80} height={80} alt="img" />
+            <Image
+              src="/adidas.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/chanel.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/dolce.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/dockers.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/fila.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/calvin.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/authorised.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
+            <Image
+              src="/armani.png"
+              width={80}
+              height={80}
+              alt="img"
+              quality={70}
+            />
           </div>
         </section>
         <section className="home__2">

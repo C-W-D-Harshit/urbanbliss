@@ -5,16 +5,15 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const cors = require("cors");
+const compression = require("compression");
 
 const errorMiddleware = require("./middleware/error");
-
-app.use(express.json({ limit: "100mb" }));
-
+app.use(compression());
 app.use(cookieParser());
-
-// Parse application/x-www-form-urlencoded requests
 app.use(bodyParser.urlencoded({ extended: true, limit: "100mb" }));
+app.use(express.json({ limit: "100mb" }));
 app.use(fileUpload());
+
 // app.use(cors());
 app.use(
   cors({

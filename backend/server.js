@@ -56,7 +56,7 @@ serv.prepare().then(() => {
   // Start the server
   const server = app.listen(process.env.PORT, (err) => {
     if (err) throw err;
-    console.log("Express server ready on http://localhost:3000");
+    console.log(`Express server ready on http://localhost:${process.env.PORT}`);
   });
   // Unhandled Promise Rejection
   process.on("unhandledRejection", (err) => {

@@ -34,7 +34,9 @@ const Signup = () => {
       const { data } = await axios.post(`/api/v1/login`, formData);
 
       if (data.success === true) {
-        Cookies.set("user", JSON.stringify(data.user));
+        Cookies.set("user", JSON.stringify(data.user), {
+          expires: process.env.COOKIE_EXPIRE,
+        });
         Swal.fire("Good job!", "Logged In Successfully!", "success");
         router.push("/account");
       }

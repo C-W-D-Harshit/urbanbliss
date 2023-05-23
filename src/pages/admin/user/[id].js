@@ -38,7 +38,7 @@ const User = ({ id }) => {
   var completedOrders =
     orders &&
     orders.filter(function (order) {
-      return order.orderStatus === "completed";
+      return order.orderStatus === "delivered";
     });
   var cancelledOrders =
     orders &&

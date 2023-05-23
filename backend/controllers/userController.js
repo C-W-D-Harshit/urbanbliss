@@ -283,3 +283,28 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     message: "User Deleted Successfully",
   });
 });
+
+exports.deleteUserF = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  if (!user) {
+    return next(
+      new ErrorHander(`User does not exist with Id: ${req.user.id}`, 400)
+    );
+  }
+
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
+
+  await User.findByIdAndDelete(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully",
+  });
+});

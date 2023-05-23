@@ -18,6 +18,8 @@ const Signup = () => {
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
+  const expiration = process.env.COOKIE_EXPIRE || 5;
+  // console.log(expiration);
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (formData.password.length < 8) {
@@ -35,7 +37,7 @@ const Signup = () => {
 
       if (data.success === true) {
         Cookies.set("user", JSON.stringify(data.user), {
-          expires: process.env.COOKIE_EXPIRE,
+          expires: expiration,
         });
         Swal.fire("Good job!", "Logged In Successfully!", "success");
         router.push("/account");

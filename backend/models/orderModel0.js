@@ -1,71 +1,27 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  shippingInfo: {
-    address: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
+  firstName: String,
+  lastName: String,
+  email: String,
+  phoneNumber: Number,
+  city: String,
+  postalCode: Number,
+  shippingFee: String,
+  streetAddress: String,
+  state: String,
 
-    state: {
-      type: String,
-      required: true,
-    },
-
-    country: {
-      type: String,
-      required: true,
-    },
-    pinCode: {
-      type: Number,
-      required: true,
-    },
-    phoneNo: {
-      type: Number,
-      required: true,
-    },
-  },
   orderItems: [
     {
-      name: {
-        type: String,
-        required: true,
-      },
-      price: {
-        type: Number,
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-      image: {
-        type: String,
-        required: true,
-      },
       product: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
-        required: true,
+        _id: { type: mongoose.Schema.ObjectId, ref: "Product", required: true },
+        size: String,
+        color: String,
       },
-      vendor: { type: mongoose.Schema.ObjectId, ref: "Vendor", required: true },
-      attribute: {
-        name: {
-          type: String,
-          required: true,
-          trim: true,
-          maxlength: 50,
-        },
-        value: {
-          type: String,
-          required: true,
-          trim: true,
-          maxlength: 100,
-        },
+      cartQuantity: {
+        type: Number,
+        required: true,
+        default: 1,
       },
     },
   ],

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineHeart, AiOutlineMore } from "react-icons/ai";
 import { BsHandbag } from "react-icons/bs";
 import { MdOutlineAccountBox } from "react-icons/md";
@@ -19,74 +19,31 @@ const Account = ({ user }) => {
   const wishCount = 0;
   const proCount = 0;
   const dispatch = useDispatch();
-  const handleLogout = async () => {
+  const [formData, setFormData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const handleChange = (event) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  const handlePass = async () => {
+    console.log(formData);
     try {
-      const { data } = await axios.get(`/api/v1/logout`);
+      const { data } = await axios.put(`/api/v1/password/update`, formData);
 
       if (data.success === true) {
-        Cookies.remove("user");
-        dispatch(clearCart());
-        Swal.fire("Good job!", "Logged Out Successfully!", "success");
-        router.push("/");
+        Swal.fire("GG!", "Passoword Changed Successfully!", "info");
+        // router.push("/");
       }
     } catch (err) {
       Swal.fire("Shit Bro!", err.response.data.message, "error");
     }
   };
-  const de = async () => {
-    try {
-      const { data } = await axios.delete(`/api/v1/me`);
-
-      if (data.success === true) {
-        Cookies.remove("user");
-        dispatch(clearCart());
-        Swal.fire("!", "Account Deleted Successfully!", "info");
-        router.push("/");
-      }
-    } catch (err) {
-      Swal.fire("Shit Bro!", err.response.data.message, "error");
-    }
-  };
-  const handleDelete = async () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          de();
-          swalWithBootstrapButtons.fire(
-            "Deleted!",
-            "Your Account has been deleted.",
-            "success"
-          );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your Account is safe :)",
-            "error"
-          );
-        }
-      });
-  };
-
+  console.log(user);
   return (
     <div className="account home">
       <div className="account__protop" style={{ marginBottom: "2rem" }}>
@@ -130,16 +87,29 @@ const Account = ({ user }) => {
         </Link>
       </div>
       <div className="account_cont">
-        {user.role === "admin" && (
-          <Link href="/admin">
-            <p>Admin</p>
-          </Link>
-        )}
-        <div className="ghy" onClick={handleLogout}>
-          <p>Logout</p>
-        </div>
-        <div className="ghy" onClick={handleDelete}>
-          <p>Delete Account</p>
+        <input
+          type="password"
+          placeholder="Old Password"
+          name="oldPassword"
+          onChange={handleChange}
+          value={formData.oldPassword}
+        />
+        <input
+          type="password"
+          placeholder="New Password"
+          name="newPassword"
+          onChange={handleChange}
+          value={formData.newPassword}
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="confirmPassword"
+          onChange={handleChange}
+          value={formData.confirmPassword}
+        />
+        <div className="" onClick={handlePass}>
+          <p>Update Password</p>
         </div>
       </div>
     </div>

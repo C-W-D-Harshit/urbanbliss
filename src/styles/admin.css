@@ -495,3 +495,195 @@ font-family: 'Sedgwick Ave Display', cursive; */
   background-color: var(--red);
   margin-left: 1rem;
 }
+
+/* User */
+
+.ad_user {
+  width: 100%;
+}
+
+.ad_user_top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.ad_user_top > :first-child {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--footer);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.ad_user_top > :last-child > :first-child {
+  color: var(--grey);
+}
+
+.ad_user_top > :last-child > :last-child {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.ad_user_s {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  justify-content: space-evenly;
+  border-bottom: 1px solid var(--grey);
+  margin-bottom: 2rem;
+}
+
+.ad_user_s > * {
+  width: 25%;
+  padding: 0 2rem;
+  border-right: 1px solid var(--grey);
+}
+
+.ad_user_s > :last-child {
+  border: none;
+}
+
+.ad_user_s > * > :first-child {
+  font-size: 2rem;
+}
+
+.ad_user_s > * > :last-child {
+  font-size: 2.7rem;
+  font-weight: 600;
+}
+
+.ad_user_role {
+  width: 30rem;
+  margin-bottom: 2rem;
+}
+
+.ad_order {
+  width: 100%;
+}
+
+.ad_order_top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ad_order_top1 {
+  display: flex;
+  align-items: center;
+}
+
+.ad_order_top1 > :first-child {
+  border: 1px solid var(--footer);
+  border-radius: 0.4rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.ad_order_top1 > :last-child > :first-child {
+  color: var(--lg-font);
+}
+
+.ad_order_top1 > :last-child > :last-child {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.ad_order_top2 {
+  display: flex;
+  align-items: center;
+}
+
+.ad_order_cta {
+  padding: 1rem 1.5rem;
+  background-color: var(--black);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+.ad_order_cta:hover {
+  color: var(--red);
+}
+
+.ad_order_ {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ad_order1 {
+  width: 65%;
+  padding: 1rem;
+  border: 1px solid var(--footer);
+  border-radius: 0.5rem;
+  height: 100%;
+}
+
+.ad_order2 {
+  width: 33%;
+  padding: 1rem;
+  border: 1px solid var(--footer);
+  border-radius: 0.5rem;
+  height: 100%;
+}
+
+.ad_order1 > div {
+  margin-bottom: 1rem;
+}
+
+.ad_order1 > div > :first-child {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.ad_order2 > :first-child {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.account_cus_tb {
+  border: 1px solid var(--footer);
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.4rem;
+}
+
+.account_cus_tb > * {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.account_cus_tb > :last-child {
+  font-weight: 500;
+  font-size: 1.4rem;
+  border-top: 1px solid var(--footer);
+  padding-top: 1rem;
+}
+
+.ad_order2_ {
+  font-size: 1.4rem;
+  color: var(--lg-font);
+}
+
+.ad_order2_ > :nth-child(even) {
+  margin-bottom: 0.5rem;
+  color: var(--black);
+}

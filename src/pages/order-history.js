@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineHeart, AiOutlineMore } from "react-icons/ai";
 import { BsHandbag } from "react-icons/bs";
 import { MdOutlineAccountBox } from "react-icons/md";
@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { clearCart } from "../../reducers/cartSlice";
 import { GoMail } from "react-icons/go";
+import { Divider } from "@mui/material";
+import Loader from "../../components/loader/Loader";
 
 const Account = ({ user }) => {
   const router = useRouter();
@@ -19,6 +21,7 @@ const Account = ({ user }) => {
   const wishCount = 0;
   const proCount = 0;
   const dispatch = useDispatch();
+  const [orders, setOrders] = useState(false);
   const handleLogout = async () => {
     try {
       const { data } = await axios.get(`/api/v1/logout`);
@@ -33,7 +36,25 @@ const Account = ({ user }) => {
       Swal.fire("Shit Bro!", err.response.data.message, "error");
     }
   };
-  const de = async () => {
+  const handleGet = async () => {
+    const response = await axios.get(`/api/v1/orders/me`);
+    const ord = response.data;
+    setOrders(ord.orders);
+  };
+  function extractDateFromCreatedAt(doc) {
+    var createdAtDate = new Date(doc);
+    var day = createdAtDate.getDate();
+    var month = createdAtDate.getMonth() + 1; // Adding 1 to the month since it is zero-based
+    var year = createdAtDate.getFullYear().toString().slice(-2); // Extracting the last two digits of the year
+
+    // Formatting day, month, and year to have two digits if needed
+    day = day < 10 ? "0" + day : day;
+    month = month < 10 ? "0" + month : month;
+
+    return day + "/" + month + "/" + year;
+  }
+
+  const handleDelete = async () => {
     try {
       const { data } = await axios.delete(`/api/v1/me`);
 
@@ -47,45 +68,13 @@ const Account = ({ user }) => {
       Swal.fire("Shit Bro!", err.response.data.message, "error");
     }
   };
-  const handleDelete = async () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          de();
-          swalWithBootstrapButtons.fire(
-            "Deleted!",
-            "Your Account has been deleted.",
-            "success"
-          );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your Account is safe :)",
-            "error"
-          );
-        }
-      });
-  };
+  useEffect(() => {
+    handleGet();
+  }, []);
+  console.log(orders);
+  if (!orders) {
+    return <Loader />;
+  }
 
   return (
     <div className="account home">
@@ -129,19 +118,36 @@ const Account = ({ user }) => {
           <p>Order History</p>
         </Link>
       </div>
-      <div className="account_cont">
-        {user.role === "admin" && (
-          <Link href="/admin">
-            <p>Admin</p>
-          </Link>
-        )}
-        <div className="ghy" onClick={handleLogout}>
-          <p>Logout</p>
+      {orders.length !== 0 ? (
+        <div className="og">
+          <div className="ogf">
+            <p>Order ID</p>
+            <p>Date</p>
+            <p>Amount</p>
+            <p>Status</p>
+          </div>
+          {orders &&
+            orders.map((order) => {
+              var extractedDate = extractDateFromCreatedAt(order.paidAt);
+              return (
+                <Link
+                  href={`/order/${order._id}`}
+                  className="ogf"
+                  key={order._id}
+                >
+                  <p>{order._id}</p>
+                  <p>{extractedDate}</p>
+                  <p>{order.totalPrice}</p>
+                  <p>{order.orderStatus}</p>
+                </Link>
+              );
+            })}
         </div>
-        <div className="ghy" onClick={handleDelete}>
-          <p>Delete Account</p>
+      ) : (
+        <div className="account_cont">
+          <h1>No Orders Yet</h1>
         </div>
-      </div>
+      )}
     </div>
   );
 };
